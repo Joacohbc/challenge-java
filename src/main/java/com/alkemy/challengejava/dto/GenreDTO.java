@@ -16,5 +16,5 @@ public class GenreDTO {
     
     private Set<MovieDTO> movies;
     
-    private boolean deleted;
+    // private boolean deleted;
 }

@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "charactert") // Uso un "t" luego de "character" porque me lo toma como la palabra reservada 
+@Table(name = "charactert") // Uso un "t" luego de "character" porque me lo toma como la palabra reservada
 @Getter
 @Setter
 
@@ -28,7 +28,7 @@ public class CharacterEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = IdColumName)
     private Long id;
-    
+
     private String image;
 
     private String name;
@@ -43,11 +43,10 @@ public class CharacterEntity {
     // el Personaje (y no sus Peliculas)
     // No uso REMOVE, ya que un personaje sea borrado de una pelicula no sigmifica
     // que deje de exitir esa pelicual en la BD.
-    @ManyToMany(
-        mappedBy = "characters", 
-        cascade = CascadeType.PERSIST, 
-        fetch = FetchType.EAGER
-    )
+
+    // Uso FetchType.LAZY para evitar una sobrecarga de memoria:
+    // Cargo Persojaje -> Trae la pelicula -> La pelicula trae los Persoanjes
+    @ManyToMany(mappedBy = "characters", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Set<MovieEntity> movies;
 
     private boolean deleted;

@@ -36,7 +36,7 @@ public class GenreEntity {
     @ManyToMany(
         mappedBy = "genres", 
         cascade = CascadeType.PERSIST, 
-        fetch = FetchType.EAGER
+        fetch = FetchType.LAZY // Las peliculas de cada genero se carguen al inicio no es neceasario
     )
     private Set<MovieEntity> movies;
 

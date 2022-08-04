@@ -15,14 +15,19 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
 import lombok.Setter;
 @Entity
-@Table(name = "MOVIE")
+@Table(name = "movie")
 @Getter
 @Setter
+
+@SQLDelete (sql = "UPDATE movie SET deleted=true WHERE id=?")
+@Where (clause = "deleted=false")
 
 public class MovieEntity {
 

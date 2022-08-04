@@ -11,13 +11,20 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "CHARACTERT") // Uso un "t" luego de "character" porque me lo toma como la palabra reservada
+@Table(name = "charactert") // Uso un "t" luego de "character" porque me lo toma como la palabra reservada
 @Getter
 @Setter
+
+
+@SQLDelete (sql = "UPDAETE charactert SET deleted=true WHERE id=?")
+@Where (clause = "deleted=false")
 
 public class CharacterEntity {
 

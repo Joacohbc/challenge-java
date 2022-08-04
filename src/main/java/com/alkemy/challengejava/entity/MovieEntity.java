@@ -21,28 +21,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "pelicula")
+@Table(name = "movie")
 @Getter
 @Setter
 
-public class PeliculaEntity {
+public class MovieEntity {
 
-        public static final String IdColumName = "id_pelicula";
+        public static final String IdColumName = "id_movie";
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = IdColumName)
         private Long id;
 
-        private String imagen;
+        private String image;
 
-        private String titulo;
+        private String title;
 
-        @Column(name = "fec_creacion")
-        @DateTimeFormat(pattern = "dd/MM/yyyy")
-        private LocalDate fechaCreacion;
+        @Column(name = "creation_date")
+        @DateTimeFormat(pattern = "yyyy/MM/dd")
+        private LocalDate creationDate;
 
-        private byte calificacion;
+        private byte rating;
 
         // Marco el Ownership de la relacion en Pelicula porque me parece que tiene mas
         // logica a nivel de negocio, aunque al ser una direccion bidireccional
@@ -61,14 +61,14 @@ public class PeliculaEntity {
                 })
         @JoinTable(
                 // Nombre de la tabla de la relacion entre Personaje y Pelicula
-                name = "participan",
+                name = "movie_character",
 
                 // FK de nuestra entidad en la relacion
                 joinColumns = @JoinColumn(name = IdColumName),
 
                 // FK de la otra entidad (Personaje) en la relacion
-                inverseJoinColumns = @JoinColumn(name = PersonajeEntity.IdColumName))
-        private Set<PersonajeEntity> elenco;
+                inverseJoinColumns = @JoinColumn(name = CharacterEntity.IdColumName))
+        private Set<CharacterEntity> characters;
 
 
         @ManyToMany(
@@ -77,10 +77,10 @@ public class PeliculaEntity {
                         CascadeType.PERSIST,
                 })
         @JoinTable(
-                name = "tiene",
+                name = "movie_genre",
                 joinColumns = @JoinColumn(name = IdColumName),
-                inverseJoinColumns = @JoinColumn(name = GeneroEntity.IdColumName))
-        private Set<GeneroEntity> generos;
+                inverseJoinColumns = @JoinColumn(name = GenreEntity.IdColumName))
+        private Set<GenreEntity> genres;
 
-        private boolean estado;
+        private boolean deleted;
 }

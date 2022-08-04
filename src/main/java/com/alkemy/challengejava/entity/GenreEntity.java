@@ -16,29 +16,29 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table (name = "genero")
+@Table (name = "genre")
 @Getter
 @Setter
 
-public class GeneroEntity {
+public class GenreEntity {
     
-    public static final String IdColumName = "id_genero";
+    public static final String IdColumName = "id_genre";
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (name = IdColumName)
     private Long id;
 
-    private String nombre;
+    private String name;
 
-    private String imagen;
+    private String image;
 
     @ManyToMany(
-        mappedBy = "generos", 
+        mappedBy = "genres", 
         cascade = CascadeType.PERSIST, 
         fetch = FetchType.EAGER
     )
-    private Set<PeliculaEntity> peliculas;
+    private Set<MovieEntity> movies;
 
-    private boolean estado;
+    private boolean deleted;
 }

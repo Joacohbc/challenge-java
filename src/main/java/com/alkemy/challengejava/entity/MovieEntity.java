@@ -83,5 +83,5 @@ public class MovieEntity {
                 inverseJoinColumns = @JoinColumn(name = GenreEntity.IdColumName))
         private Set<GenreEntity> genres;
 
-        private boolean deleted;
+        private boolean deleted = Boolean.FALSE;
 }

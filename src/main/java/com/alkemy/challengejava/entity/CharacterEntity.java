@@ -45,11 +45,8 @@ public class CharacterEntity {
     // el Personaje (y no sus Peliculas)
     // No uso REMOVE, ya que un personaje sea borrado de una pelicula no sigmifica
     // que deje de exitir esa pelicual en la BD.
-
-    // Uso FetchType.LAZY para evitar una sobrecarga de memoria:
-    // Cargo Persojaje -> Trae la pelicula -> La pelicula trae los Persoanjes
-    @ManyToMany(mappedBy = "characters", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "characters", cascade = CascadeType.PERSIST)
     private Set<MovieEntity> movies;
 
-    private boolean deleted;
+    private boolean deleted = Boolean.FALSE;
 }

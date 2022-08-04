@@ -7,7 +7,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class GenreDTO extends GenreBasicDTO {    
+public class GenreDTO {
+    private Long id;
+
+    private String name;
+
+    private String image;
+    
     private Set<MovieDTO> movies;
-    private boolean deleted;
+    
+    // private boolean deleted;
 }

@@ -19,9 +19,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
 import lombok.Setter;
-
 @Entity
-@Table(name = "movie")
+@Table(name = "MOVIE")
 @Getter
 @Setter
 
@@ -34,10 +33,12 @@ public class MovieEntity {
         @Column(name = IdColumName)
         private Long id;
 
-        private String image;
-
+        @Column(unique = true)
         private String title;
 
+        @Column(unique = true)
+        private String image;
+        
         @Column(name = "creation_date")
         @DateTimeFormat(pattern = "yyyy/MM/dd")
         private LocalDate creationDate;
@@ -61,7 +62,7 @@ public class MovieEntity {
                 })
         @JoinTable(
                 // Nombre de la tabla de la relacion entre Personaje y Pelicula
-                name = "movie_character",
+                name = "MOVIE_CHARACTER",
 
                 // FK de nuestra entidad en la relacion
                 joinColumns = @JoinColumn(name = IdColumName),
@@ -77,7 +78,7 @@ public class MovieEntity {
                         CascadeType.PERSIST,
                 })
         @JoinTable(
-                name = "movie_genre",
+                name = "MOVIE_GENRE",
                 joinColumns = @JoinColumn(name = IdColumName),
                 inverseJoinColumns = @JoinColumn(name = GenreEntity.IdColumName))
         private Set<GenreEntity> genres;

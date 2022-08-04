@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "charactert") // Uso un "t" luego de "character" porque me lo toma como la palabra reservada
+@Table(name = "CHARACTERT") // Uso un "t" luego de "character" porque me lo toma como la palabra reservada
 @Getter
 @Setter
 
@@ -29,10 +29,12 @@ public class CharacterEntity {
     @Column(name = IdColumName)
     private Long id;
 
-    private String image;
-
+    @Column(unique = true)
     private String name;
 
+    @Column(unique = true)
+    private String image;
+    
     private int age;
 
     private int weight;

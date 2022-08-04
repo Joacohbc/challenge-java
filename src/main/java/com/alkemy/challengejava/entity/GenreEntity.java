@@ -15,7 +15,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table (name = "genre")
+@Table (name = "GENRE")
 @Getter
 @Setter
 
@@ -28,8 +28,10 @@ public class GenreEntity {
     @Column (name = IdColumName)
     private Long id;
 
+    @Column(unique = true)
     private String name;
 
+    @Column(unique = true)
     private String image;
 
     @ManyToMany(

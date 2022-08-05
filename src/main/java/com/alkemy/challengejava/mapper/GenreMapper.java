@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
-
 import com.alkemy.challengejava.dto.GenreBasicDTO;
-import com.alkemy.challengejava.dto.GenreDTO;
 import com.alkemy.challengejava.entity.GenreEntity;
 
 

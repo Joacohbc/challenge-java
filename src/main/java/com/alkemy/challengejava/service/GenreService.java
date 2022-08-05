@@ -2,11 +2,11 @@ package com.alkemy.challengejava.service;
 
 import java.util.List;
 
-import com.alkemy.challengejava.dto.GenreDTO;
+import com.alkemy.challengejava.dto.GenreBasicDTO;
 
 
 public interface GenreService {
-    GenreDTO save(GenreDTO dto);
+    GenreBasicDTO save(GenreBasicDTO dto);
 
-    List<GenreDTO> getAll();
+    List<GenreBasicDTO> getAll();
 }

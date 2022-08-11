@@ -26,7 +26,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-@SQLDelete (sql = "UPDATE movie SET deleted=true WHERE id=?")
+@SQLDelete (sql = "UPDATE movie SET deleted=true WHERE id_movie=?")
 @Where (clause = "deleted=false")
 
 public class MovieEntity {

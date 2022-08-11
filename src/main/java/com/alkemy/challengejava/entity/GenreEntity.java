@@ -22,7 +22,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-@SQLDelete (sql = "UPDATE genre SET deleted=true WHERE id=?")
+@SQLDelete (sql = "UPDATE genre SET deleted=true WHERE id_genre=?")
 @Where (clause = "deleted=false")
 
 public class GenreEntity {

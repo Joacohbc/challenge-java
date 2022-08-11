@@ -24,7 +24,7 @@ public class GenreController {
 
     @GetMapping
     public ResponseEntity<List<GenreBasicDTO>> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.getAll());
+        return ResponseEntity.ok(service.getAll());
     }
 
     // Si indicadara @PostMapping("/otracosa"), para acceer aqui seria POST - /genres/otracosa/

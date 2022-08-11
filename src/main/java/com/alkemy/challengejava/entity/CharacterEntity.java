@@ -21,9 +21,7 @@ import lombok.Setter;
 @Table(name = "charactert") // Uso un "t" luego de "character" porque me lo toma como la palabra reservada
 @Getter
 @Setter
-
-
-@SQLDelete (sql = "UPDAETE charactert SET deleted=true WHERE id=?")
+@SQLDelete (sql = "UPDATE charactert SET deleted=true WHERE id_character=?")
 @Where (clause = "deleted=false")
 
 public class CharacterEntity {
@@ -41,9 +39,9 @@ public class CharacterEntity {
     @Column(unique = true)
     private String image;
     
-    private int age;
+    private Integer age;
 
-    private int weight;
+    private Integer weight;
 
     private String history;
 

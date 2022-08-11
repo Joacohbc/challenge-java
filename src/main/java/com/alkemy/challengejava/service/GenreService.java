@@ -7,6 +7,5 @@ import com.alkemy.challengejava.dto.GenreBasicDTO;
 
 public interface GenreService {
     GenreBasicDTO save(GenreBasicDTO dto);
-
     List<GenreBasicDTO> getAll();
 }

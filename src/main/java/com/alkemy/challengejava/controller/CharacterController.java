@@ -26,44 +26,45 @@ public class CharacterController {
 
     @PostMapping
     public ResponseEntity<CharacterDTO> saveCharacter(@RequestBody CharacterDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.saveCharacter(dto));
     }
 
     @GetMapping
     ResponseEntity<List<CharacterDTO>> getAllCharaters() {
-        return ResponseEntity.ok(service.getAll());
+        return ResponseEntity.ok(service.getAllCharacters());
     }
 
     @GetMapping("/{id}")
     ResponseEntity<CharacterDTO> get(@PathVariable Long id) {
-        CharacterDTO dto = service.get(id);
+
+        // Obtengo el el DTO de la base de datos
+        CharacterDTO dto = service.getCharacter(id);
         
-        // Si DTO exite 
+        // Si DTO exite (es diferente de null) lo envio con Status.OK y si no le envio un NotFound
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteACharacter(@PathVariable Long id) {
-
-        // Verifico que personaje exista para borrarlo
-        if(service.get(id) == null) {
+    public ResponseEntity<Object> deleteCharacter(@PathVariable Long id) {
+        
+        // Si no se borro el carcter (false) le envio un error al usuario 
+        if(!service.deleteCharacter(id)){
             return ResponseEntity.badRequest().body("The character with the id "+ id + " does not exist");
         }
 
-        // SI exitia lo borro
-        service.delete(id);
+        // Si se borro el personaje lo notifico
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updateCharacter(@PathVariable Long id, @RequestBody CharacterDTO dto) {
 
-        // Verifico que personaje exista para borrarlo
-        if(service.get(id) == null) {
+        // Si no se pudo modificar del personaje (false) le envio un error al usuario 
+        if(!service.updateCharacter(id, dto)) {
             return ResponseEntity.badRequest().body("The character with the id "+ id + " does not exist");
         }
 
-        service.modify(id, dto);
+        // Si se modifico con exito lo notifico
         return ResponseEntity.noContent().build();
     }
 }

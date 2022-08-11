@@ -3,6 +3,7 @@ package com.alkemy.challengejava.service.implementations;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,24 +23,64 @@ public class CharacterServiceImpl implements CharacterService {
     @Autowired
     private CharacterMapper mapper;
 
-    public CharacterDTO save(CharacterDTO dto) {
+    public CharacterDTO saveCharacter(CharacterDTO dto) {
         return mapper.Entity2DTO(repository.save(mapper.DTO2Entity(dto)));
     }
 
-    public List<CharacterDTO> getAll() {
+    public List<CharacterDTO> getAllCharacters() {
         return mapper.ListEntity2ListDTO(repository.findAll());
     }
 
-    public void delete(Long id) {
+    public boolean deleteCharacter(Long id) {
+
+        if(getCharacter(id) == null){
+            return false;
+        }
+
         repository.deleteById(id);
+        return true;
     }
 
-    public CharacterDTO get(Long id) {
+    public CharacterDTO getCharacter(Long id) {
         Optional<CharacterEntity> dto = repository.findById(id);
         return dto.isPresent() ? mapper.Entity2DTO(dto.get()) : null;
     }
 
-    public void modify(Long id, CharacterDTO dto) {
-        repository.update(dto.getName(), dto.getAge(), dto.getHistory(), dto.getImage(), dto.getWeight(), id);
+    public boolean updateCharacter(Long id, CharacterDTO dtoNew) {
+
+        // Intento obtener los datos del Character
+        CharacterDTO dto = getCharacter(id);
+
+        // Si no no existe ese Character retorno false
+        if(dto == null){
+            return false;
+        }
+
+        // Si algun campo del DTO para modificar esta vacio 
+        // le setteo el valor que ya tiene la base de datos
+
+        if(Strings.isBlank(dtoNew.getImage())){
+            dtoNew.setImage(dto.getImage());
+        }
+
+        if(Strings.isBlank(dtoNew.getName())){
+            dtoNew.setName(dto.getName());
+        }
+
+        if(dtoNew.getAge() == 0){
+            dtoNew.setAge(dto.getAge());
+        }
+
+        if(dtoNew.getWeight() == 0){
+            dtoNew.setWeight(dto.getWeight());
+        }
+
+        if(Strings.isBlank(dtoNew.getHistory())){
+            dtoNew.setHistory(dto.getHistory());
+        }
+
+        // TODO: Hacer algo con el dto.getMovies()
+        repository.update(dtoNew.getName(), dtoNew.getAge(), dtoNew.getHistory(), dtoNew.getImage(), dtoNew.getWeight(), id);
+        return true;
     }
 }

@@ -38,10 +38,8 @@ public class MovieEntity {
         @Column(name = IdColumName)
         private Long id;
 
-        @Column(unique = true)
         private String title;
 
-        @Column(unique = true)
         private String image;
         
         @Column(name = "creation_date")

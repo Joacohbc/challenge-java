@@ -33,10 +33,8 @@ public class CharacterEntity {
     @Column(name = IdColumName)
     private Long id;
 
-    @Column(unique = true)
     private String name;
 
-    @Column(unique = true)
     private String image;
     
     private Integer age;

@@ -39,8 +39,7 @@ public class CharacterServiceImpl implements CharacterService {
         return dto.isPresent() ? mapper.Entity2DTO(dto.get()) : null;
     }
 
-    public CharacterDTO modify(Long id, CharacterDTO dto) {
-        // TODO Auto-generated method stub
-        return null;
+    public void modify(Long id, CharacterDTO dto) {
+        repository.update(dto.getName(), dto.getAge(), dto.getHistory(), dto.getImage(), dto.getWeight(), id);
     }
 }

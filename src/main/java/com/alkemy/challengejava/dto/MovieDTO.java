@@ -3,6 +3,8 @@ package com.alkemy.challengejava.dto;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.alkemy.challengejava.entity.Rating;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +20,7 @@ public class MovieDTO {
 
     private LocalDate creationDate;
 
-    private byte rating;
+    private Rating rating;
 
     private Set<CharacterDTO> characters;
 

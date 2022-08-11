@@ -48,7 +48,7 @@ public class MovieEntity {
         @DateTimeFormat(pattern = "yyyy/MM/dd")
         private LocalDate creationDate;
 
-        private byte rating;
+        private Rating rating;
 
         // Marco el Ownership de la relacion en Pelicula porque me parece que tiene mas
         // logica a nivel de negocio, aunque al ser una direccion bidireccional

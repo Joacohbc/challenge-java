@@ -35,16 +35,20 @@ public class GenreMapper {
 
     public List<GenreDTO> EntityList2DTOList(Set<GenreEntity> set) {
         List<GenreDTO> dtos = new LinkedList<>();
-        for (GenreEntity entity : set) {
-            dtos.add(Entity2DTO(entity));
+        if(set != null){
+            for (GenreEntity entity : set) {
+                dtos.add(Entity2DTO(entity));
+            }
         }
         return dtos;
     }
 
     public List<GenreEntity> ListDTO2ListEntity(Set<GenreDTO> set) {
         List<GenreEntity> entities = new LinkedList<>();
-        for (GenreDTO dto : set) {
-            entities.add(DTO2Entity(dto));
+        if(set != null){
+            for (GenreDTO dto : set) {
+                entities.add(DTO2Entity(dto));
+            }
         }
         return entities;
     }

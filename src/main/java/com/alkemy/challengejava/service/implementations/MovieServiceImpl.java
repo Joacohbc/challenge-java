@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alkemy.challengejava.dto.MovieDTO;
+import com.alkemy.challengejava.entity.MovieEntity;
 import com.alkemy.challengejava.mapper.MovieMapper;
 import com.alkemy.challengejava.repository.MovieRepository;
 import com.alkemy.challengejava.service.MovieService;
@@ -30,9 +31,10 @@ public class MovieServiceImpl implements MovieService {
         // Por si no ingresa ningun Genero que no tire error
         if(dto.getGenres() == null) {
             dto.setGenres(new HashSet<>());
-        }
+        }  
 
-        return mapper.Entity2DTO(repository.save(mapper.DTO2Entity(dto)));
+        MovieEntity entity = mapper.DTO2Entity(dto,false);
+        return mapper.Entity2DTO(repository.save(entity), true);
     }
 
     public boolean updateMovie(Long id, MovieDTO dto) {

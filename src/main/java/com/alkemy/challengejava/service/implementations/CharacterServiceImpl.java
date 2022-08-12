@@ -25,11 +25,12 @@ public class CharacterServiceImpl implements CharacterService {
     private CharacterMapper mapper;
 
     public CharacterDTO saveCharacter(CharacterDTO dto) {
-        return mapper.Entity2DTO(repository.save(mapper.DTO2Entity(dto)));
+        CharacterEntity entity = mapper.DTO2Entity(dto,false);
+        return mapper.Entity2DTO(repository.save(entity),true);
     }
 
     public List<CharacterDTO> getAllCharacters() {
-        return mapper.ListEntity2ListDTO(new HashSet<>(repository.findAll()));
+        return mapper.ListEntity2ListDTO(new HashSet<>(repository.findAll()),true);
     }
 
     public boolean deleteCharacter(Long id) {
@@ -44,7 +45,7 @@ public class CharacterServiceImpl implements CharacterService {
 
     public CharacterDTO getCharacter(Long id) {
         Optional<CharacterEntity> dto = repository.findById(id);
-        return dto.isPresent() ? mapper.Entity2DTO(dto.get()) : null;
+        return dto.isPresent() ? mapper.Entity2DTO(dto.get(),true) : null;
     }
 
     public boolean updateCharacter(Long id, CharacterDTO dtoNew) {

@@ -3,8 +3,6 @@ package com.alkemy.challengejava.dto;
 import java.time.LocalDate;
 import java.util.Set;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.alkemy.challengejava.entity.Rating;
 import com.fasterxml.jackson.annotation.JsonFormat;
 

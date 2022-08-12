@@ -21,7 +21,7 @@ public class GenreController {
     @Autowired // Le digo a SpringBoot que me inicialize el Servicio automaticamente
     private GenreService service;
 
-    @GetMapping
+    @GetMapping // GET - /genres
     public ResponseEntity<List<GenreDTO>> getAll() {
         return ResponseEntity.ok(service.getAll());
     }

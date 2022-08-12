@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alkemy.challengejava.dto.CharacterDTO;
+import com.alkemy.challengejava.dto.ErrorDTO;
 import com.alkemy.challengejava.service.CharacterService;
 
 @Controller()
@@ -24,44 +25,47 @@ public class CharacterController {
     @Autowired
     private CharacterService service;
 
-    @PostMapping
+
+
+    @PostMapping // POST - /characters
     public ResponseEntity<CharacterDTO> saveCharacter(@RequestBody CharacterDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.saveCharacter(dto));
     }
 
-    @GetMapping
+    @GetMapping // GET - /characters
     ResponseEntity<List<CharacterDTO>> getAllCharaters() {
         return ResponseEntity.ok(service.getAllCharacters());
     }
 
-    @GetMapping("/{id}")
-    ResponseEntity<CharacterDTO> get(@PathVariable Long id) {
+    @GetMapping("/{id}") // GET - /characters/{id}
+    ResponseEntity<Object> get(@PathVariable Long id) {
 
         // Obtengo el el DTO de la base de datos
         CharacterDTO dto = service.getCharacter(id);
+
         
         // Si DTO exite (es diferente de null) lo envio con Status.OK y si no le envio un NotFound
-        return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
+        return dto != null ? ResponseEntity.ok(dto) : ErrorDTO.NotFound("The character with the id "+ id + " does not exist");
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") // DELETE - /characters/{id}
     public ResponseEntity<Object> deleteCharacter(@PathVariable Long id) {
         
         // Si no se borro el carcter (false) le envio un error al usuario 
         if(!service.deleteCharacter(id)){
-            return ResponseEntity.badRequest().body("The character with the id "+ id + " does not exist");
+            return ErrorDTO.NotFound("The character with the id "+ id + " does not exist");
         }
 
         // Si se borro el personaje lo notifico
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") // PUT - /characters/{id}
     public ResponseEntity<Object> updateCharacter(@PathVariable Long id, @RequestBody CharacterDTO dto) {
 
         // Si no se pudo modificar del personaje (false) le envio un error al usuario 
         if(!service.updateCharacter(id, dto)) {
-            return ResponseEntity.badRequest().body("The character with the id "+ id + " does not exist");
+            return ErrorDTO.NotFound("The character with the id "+ id + " does not exist");
         }
 
         // Si se modifico con exito lo notifico

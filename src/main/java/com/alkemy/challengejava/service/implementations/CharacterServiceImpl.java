@@ -3,15 +3,19 @@ package com.alkemy.challengejava.service.implementations;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.function.Function;
 
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alkemy.challengejava.dto.CharacterDTO;
+import com.alkemy.challengejava.dto.characters.CharacterDTO;
+import com.alkemy.challengejava.dto.characters.CharacterFiltersDTO;
 import com.alkemy.challengejava.entity.CharacterEntity;
 import com.alkemy.challengejava.mapper.CharacterMapper;
-import com.alkemy.challengejava.repository.CharacterRepository;
+import com.alkemy.challengejava.repository.characters.CharacterRepository;
+import com.alkemy.challengejava.repository.characters.CharacterSpecification;
 import com.alkemy.challengejava.service.CharacterService;
 
 
@@ -23,6 +27,10 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Autowired
     private CharacterMapper mapper;
+
+    @Autowired
+    private CharacterSpecification specifications;
+
 
     public CharacterDTO saveCharacter(CharacterDTO dto) {
         CharacterEntity entity = mapper.DTO2Entity(dto,false);
@@ -80,9 +88,15 @@ public class CharacterServiceImpl implements CharacterService {
         if(Strings.isBlank(dtoNew.getHistory())){
             dtoNew.setHistory(dto.getHistory());
         }
-
-        // TODO: Hacer algo con el dto.getMovies()
+        
         repository.update(dtoNew.getName(), dtoNew.getAge(), dtoNew.getHistory(), dtoNew.getImage(), dtoNew.getWeight(), id);
         return true;
+    }
+
+    public List<CharacterDTO> getCharacterByFilters(String name, Integer age, Integer weight, Set<Long> movies, String order) {
+        CharacterFiltersDTO filtersDTO = new CharacterFiltersDTO(name, age, weight, movies, order);
+
+        Set<CharacterEntity> entities = new HashSet<>(repository.findAll(specifications.getSpecsByFilters(filtersDTO)));
+        return mapper.ListEntity2ListDTO(entities, true);
     }
 }

@@ -1,6 +1,8 @@
-package com.alkemy.challengejava.dto;
+package com.alkemy.challengejava.dto.characters;
 
 import java.util.Set;
+
+import com.alkemy.challengejava.dto.MovieDTO;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -3,6 +3,7 @@ package com.alkemy.challengejava.dto;
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.alkemy.challengejava.dto.characters.CharacterDTO;
 import com.alkemy.challengejava.entity.Rating;
 import com.fasterxml.jackson.annotation.JsonFormat;
 

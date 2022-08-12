@@ -29,10 +29,14 @@ public class CharacterMapper {
         entity.setHistory(dto.getHistory());
         // entity.setDeleted(dto.isDeleted());
 
+        // Si se pide el Personaje con sus peliculas
         if (withMovies) {
+            // Agregamos las peliculas sin sus personajes para evitar un StackOverFlow
+            // a causa de llamarse entre Character y Movie infinitamente
             Set<MovieEntity> movies = new HashSet<>(movieMapper.ListDTO2ListEntity(dto.getMovies(), false));
             entity.setMovies(movies);
         } else {
+            // Sino le enviamos una lista vacia en vez de null para evitar NullPoninter
             entity.setMovies(new HashSet<>());
         }
 
@@ -49,10 +53,15 @@ public class CharacterMapper {
         dto.setHistory(entity.getHistory());
         // dto.setDeleted(entity.isDeleted());
 
+
+        // Si se pide el Personaje con sus peliculas
         if (withMovies) {
+            // Agregamos las peliculas sin sus personajes para evitar un StackOverFlow
+            // a causa de llamarse entre Character y Movie infinitamente
             Set<MovieDTO> movies = new HashSet<>(movieMapper.ListEntity2ListDTO(entity.getMovies(), false));
             dto.setMovies(movies);
         } else {
+            // Sino le enviamos una lista vacia en vez de null para evitar NullPoninter
             dto.setMovies(new HashSet<>());
         }
         return dto;
@@ -60,6 +69,8 @@ public class CharacterMapper {
 
     public List<CharacterDTO> ListEntity2ListDTO(Set<CharacterEntity> set, boolean withMovies) {
         List<CharacterDTO> dtos = new LinkedList<>();
+
+        // Si el Set viene vacio recorro para evitar NullPointer
         if (set != null) {
             for (CharacterEntity entity : set) {
                 dtos.add(Entity2DTO(entity, withMovies));
@@ -70,6 +81,8 @@ public class CharacterMapper {
 
     public List<CharacterEntity> ListDTO2ListEntity(Set<CharacterDTO> set, boolean withMovies) {
         List<CharacterEntity> entities = new LinkedList<>();
+
+        // Si el Set viene vacio recorro para evitar NullPointer
         if (set != null) {
             for (CharacterDTO dto : set) {
                 entities.add(DTO2Entity(dto, withMovies));

@@ -29,12 +29,14 @@ public class GenreMapper {
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setImage(entity.getImage());
-        dto.setDeleted(entity.isDeleted());
+        // dto.setDeleted(entity.isDeleted());
         return dto;
     }
 
     public List<GenreDTO> EntityList2DTOList(Set<GenreEntity> set) {
         List<GenreDTO> dtos = new LinkedList<>();
+
+        // Si el Set viene vacio recorro para evitar NullPointer
         if(set != null){
             for (GenreEntity entity : set) {
                 dtos.add(Entity2DTO(entity));
@@ -45,6 +47,8 @@ public class GenreMapper {
 
     public List<GenreEntity> ListDTO2ListEntity(Set<GenreDTO> set) {
         List<GenreEntity> entities = new LinkedList<>();
+
+        // Si el Set viene vacio recorro para evitar NullPointer
         if(set != null){
             for (GenreDTO dto : set) {
                 entities.add(DTO2Entity(dto));

@@ -33,11 +33,16 @@ public class MovieMapper {
         dto.setCreationDate(entity.getCreationDate());
         dto.setRating(entity.getRating());
 
+
+        // Si pide la Pelicula con sus personajes
         if (withCharacters) {
+            // Le cargo las peliculas sin sus personajes para evitar un StackOverFlow
+            // a causa de llamarse entre Character y Movie infinitamente
             Set<CharacterDTO> characters = new HashSet<>(
                     charcterMapper.ListEntity2ListDTO(entity.getCharacters(), false));
             dto.setCharacters(characters);
         } else {
+            // Sino le enviamos una lista vacia en vez de null para evitar NullPoninter
             dto.setCharacters(new HashSet<>());
         }
 
@@ -71,6 +76,8 @@ public class MovieMapper {
 
     public List<MovieDTO> ListEntity2ListDTO(Set<MovieEntity> set, boolean withCharacters) {
         List<MovieDTO> dtos = new LinkedList<>();
+
+        // Si el Set viene vacio recorro para evitar NullPointer
         if (set != null) {
             for (MovieEntity entity : set) {
                 dtos.add(Entity2DTO(entity, withCharacters));
@@ -81,6 +88,8 @@ public class MovieMapper {
 
     public List<MovieEntity> ListDTO2ListEntity(Set<MovieDTO> set, boolean withCharacters) {
         List<MovieEntity> entities = new LinkedList<>();
+
+        // Si el Set viene vacio recorro para evitar NullPointer
         if (set != null) {
             for (MovieDTO dto : set) {
                 entities.add(DTO2Entity(dto, withCharacters));

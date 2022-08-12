@@ -38,10 +38,7 @@ public class GenreEntity {
 
     private String image;
 
-    @ManyToMany(
-        mappedBy = "genres", 
-        cascade = CascadeType.PERSIST
-    )
+    @ManyToMany(mappedBy = "genres")
     private Set<MovieEntity> movies;
 
     private boolean deleted = Boolean.FALSE;

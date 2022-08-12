@@ -52,19 +52,7 @@ public class MovieEntity {
         // Marco el Ownership de la relacion en Pelicula porque me parece que tiene mas
         // logica a nivel de negocio, aunque al ser una direccion bidireccional
         // da igual
-        @ManyToMany(fetch = FetchType.EAGER,
-
-                        // No uso MERGE, ya que en al letra pide especificamente que solo se actualice
-                        // la Pelicula (y no sus persoanjes)
-
-                        // No uso REMOVE, ya que un persojae sea borrado de una pelicula no sigmifica
-                        // que deje de exitir en al BD, ya que puede pariticipar en otras peliculas
-                        cascade = {
-                                        // Merge para que una los personajes y los generos pero que no los inserte
-                                        // si no existen (si se intenta asociar peliculas a generos que no existen tira
-                                        // error)
-                                        CascadeType.MERGE,
-                        })
+        @ManyToMany
         @JoinTable(
                         // Nombre de la tabla de la relacion entre Personaje y Pelicula
                         name = "MOVIE_CHARACTER",
@@ -76,12 +64,7 @@ public class MovieEntity {
                         inverseJoinColumns = @JoinColumn(name = CharacterEntity.IdColumName))
         private Set<CharacterEntity> characters;
 
-        @ManyToMany(fetch = FetchType.EAGER, cascade = {
-                        // Merge para que una los personajes y las peliculas pero que no los inserte
-                        // si no existen (si se intenta asociar peliculas a personajes que no existen
-                        // tira error)
-                        CascadeType.MERGE,
-        })
+        @ManyToMany
         @JoinTable(name = "MOVIE_GENRE", joinColumns = @JoinColumn(name = IdColumName), inverseJoinColumns = @JoinColumn(name = GenreEntity.IdColumName))
         private Set<GenreEntity> genres;
 

@@ -1,20 +1,22 @@
 package com.alkemy.challengejava.entity;
 
 public enum Rating {
-    UNA_ESTRELLAS(1),
-    DOS_ESTRELLAS(2),
-    TRES_ESTRELAS(3),
-    CUATRO_ESTRELLAS(4),
-    CINCO_ESTRELLA(5);
+    INVALID_OPTION("SE INGRESO 0"), // Esto esta para que si el usuario ingresa 0, este esta opcion
+    UNA_ESTRELLA("1 ESTRELLA"),
+    DOS_ESTRELLAS("2 ESTRELLAS"),
+    TRES_ESTRELAS("3 ESTRELLAS"),
+    CUATRO_ESTRELLAS("4 ESTRELLAS"),
+    CINCO_ESTRELLA("5 ESTRELLAS");
 
-    private int number;
+    private String text;
 
-    public int getNumber() {
-        return this.number;
+    private Rating(String text){
+        this.text = text;
     }
 
-    private Rating(int number){
-        this.number = number;
+    @Override
+    public String toString() {
+        return text;
     }
 }
 

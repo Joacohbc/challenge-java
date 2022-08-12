@@ -47,7 +47,7 @@ public class CharacterEntity {
     // el Personaje (y no sus Peliculas)
     // No uso REMOVE, ya que un personaje sea borrado de una pelicula no sigmifica
     // que deje de exitir esa pelicual en la BD.
-    @ManyToMany(mappedBy = "characters", cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "characters")
     private Set<MovieEntity> movies;
 
     private boolean deleted = Boolean.FALSE;

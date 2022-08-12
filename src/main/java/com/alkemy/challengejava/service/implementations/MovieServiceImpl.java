@@ -2,12 +2,15 @@ package com.alkemy.challengejava.service.implementations;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.alkemy.challengejava.dto.MovieDTO;
 import com.alkemy.challengejava.entity.MovieEntity;
+import com.alkemy.challengejava.entity.Rating;
 import com.alkemy.challengejava.mapper.MovieMapper;
 import com.alkemy.challengejava.repository.MovieRepository;
 import com.alkemy.challengejava.service.MovieService;
@@ -20,7 +23,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Autowired
     private MovieMapper mapper;
-
+    
     public MovieDTO saveMovie(MovieDTO dto) {
 
         // Por si no ingresa ningun Personaje no tire error
@@ -33,7 +36,11 @@ public class MovieServiceImpl implements MovieService {
             dto.setGenres(new HashSet<>());
         }  
 
-        MovieEntity entity = mapper.DTO2Entity(dto,false);
+        if(dto.getRating() == Rating.INVALID_OPTION){
+            dto.setRating(Rating.UNA_ESTRELLA);
+        }
+
+        MovieEntity entity = mapper.DTO2Entity(dto,true);
         return mapper.Entity2DTO(repository.save(entity), true);
     }
 
@@ -48,8 +55,8 @@ public class MovieServiceImpl implements MovieService {
     }
 
     public List<MovieDTO> getAllMovies() {
-        // TODO Auto-generated method stub
-        return null;
+        Set<MovieEntity> movies = new HashSet<>(repository.findAll());
+        return mapper.ListEntity2ListDTO(movies, true);
     }
 
     public MovieDTO getMovie(Long id) {

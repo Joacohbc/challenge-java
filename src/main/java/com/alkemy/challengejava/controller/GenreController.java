@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alkemy.challengejava.dto.GenreBasicDTO;
 import com.alkemy.challengejava.dto.GenreDTO;
 import com.alkemy.challengejava.service.GenreService;
 
@@ -23,13 +22,13 @@ public class GenreController {
     private GenreService service;
 
     @GetMapping
-    public ResponseEntity<List<GenreBasicDTO>> getAll() {
+    public ResponseEntity<List<GenreDTO>> getAll() {
         return ResponseEntity.ok(service.getAll());
     }
 
     // Si indicadara @PostMapping("/otracosa"), para acceer aqui seria POST - /genres/otracosa/
     @PostMapping // POST - /genres
-    public ResponseEntity<GenreBasicDTO> save(@RequestBody GenreDTO genre) {
+    public ResponseEntity<GenreDTO> save(@RequestBody GenreDTO genre) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(genre));
     }
 }

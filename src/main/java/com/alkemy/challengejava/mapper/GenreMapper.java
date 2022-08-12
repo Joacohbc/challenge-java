@@ -1,21 +1,21 @@
 package com.alkemy.challengejava.mapper;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
-import com.alkemy.challengejava.dto.GenreBasicDTO;
+import com.alkemy.challengejava.dto.GenreDTO;
 import com.alkemy.challengejava.entity.GenreEntity;
 
-
 // No es un tipo principal, ni Service, ni Entity, ni Controller. Por eso le pongo componente
-@Component 
+@Component
 public class GenreMapper {
 
     // El 2 es lo mismo que un "To"
 
-    // Basic DTO -> Entity
-    public GenreEntity genreBasicDTO2Entity(GenreBasicDTO dto) {
+    // DTO -> Entity
+    public GenreEntity DTO2Entity(GenreDTO dto) {
         GenreEntity entity = new GenreEntity();
         entity.setId(dto.getId());
         entity.setName(dto.getName());
@@ -23,32 +23,29 @@ public class GenreMapper {
         return entity;
     }
 
-    // Entity -> Basic DTO
-    public GenreBasicDTO genreEntity2BasicDTO(GenreEntity entity) {
-        GenreBasicDTO dto = new GenreBasicDTO();
+    // Entity -> DTO
+    public GenreDTO Entity2DTO(GenreEntity entity) {
+        GenreDTO dto = new GenreDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
         dto.setImage(entity.getImage());
+        dto.setDeleted(entity.isDeleted());
         return dto;
     }
 
-
-    // Entity -> DTO
-    // public GenreDTO genreEntity2DTO(GenreEntity entity) {
-    //    GenreDTO dto = new GenreDTO();
-    //    dto.setId(entity.getId());
-    //    dto.setName(entity.getName());
-    //    dto.setImage(entity.getImage());
-    //    dto.setMovies(entity.getMovies());
-    //   dto.setDeleted(entity.isDeleted());
-    //    return dto;
-    //}
-
-    public List<GenreBasicDTO> genreEntityList2DTOList(List<GenreEntity> entities) {
-        List<GenreBasicDTO> dtos = new ArrayList<>();
-        for (GenreEntity entity : entities) {
-            dtos.add(genreEntity2BasicDTO(entity));
+    public List<GenreDTO> EntityList2DTOList(Set<GenreEntity> set) {
+        List<GenreDTO> dtos = new LinkedList<>();
+        for (GenreEntity entity : set) {
+            dtos.add(Entity2DTO(entity));
         }
         return dtos;
+    }
+
+    public List<GenreEntity> ListDTO2ListEntity(Set<GenreDTO> set) {
+        List<GenreEntity> entities = new LinkedList<>();
+        for (GenreDTO dto : set) {
+            entities.add(DTO2Entity(dto));
+        }
+        return entities;
     }
 }

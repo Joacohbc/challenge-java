@@ -1,11 +1,12 @@
 package com.alkemy.challengejava.service.implementations;
 
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alkemy.challengejava.dto.GenreBasicDTO;
+import com.alkemy.challengejava.dto.GenreDTO;
 import com.alkemy.challengejava.entity.GenreEntity;
 import com.alkemy.challengejava.mapper.GenreMapper;
 import com.alkemy.challengejava.repository.GenreRepository;
@@ -22,15 +23,15 @@ public class GenreServiceImpl implements GenreService {
     // Un Repository para trabjar con la BD
     private GenreRepository repository;
 
-    public GenreBasicDTO save(GenreBasicDTO dto) {
+    public GenreDTO save(GenreDTO dto) {
         // Guardo el DTO (mappeado a Entity)
-        GenreEntity saved = repository.save(mapper.genreBasicDTO2Entity(dto));
+        GenreEntity saved = repository.save(mapper.DTO2Entity(dto));
 
         // Retornorno al Entity guardada (mappeado a DTO)
-        return mapper.genreEntity2BasicDTO(saved);
+        return mapper.Entity2DTO(saved);
     }
 
-    public List<GenreBasicDTO> getAll() {
-        return mapper.genreEntityList2DTOList(repository.findAll());
+    public List<GenreDTO> getAll() {
+        return mapper.EntityList2DTOList(new HashSet<>(repository.findAll()));
     }
 }

@@ -3,7 +3,10 @@ package com.alkemy.challengejava.dto;
 import java.time.LocalDate;
 import java.util.Set;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.alkemy.challengejava.entity.Rating;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +21,7 @@ public class MovieDTO {
 
     private String title;
 
+    @JsonFormat(pattern="dd/MM/yyyy")
     private LocalDate creationDate;
 
     private Rating rating;

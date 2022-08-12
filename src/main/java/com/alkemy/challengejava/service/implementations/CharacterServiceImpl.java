@@ -1,5 +1,6 @@
 package com.alkemy.challengejava.service.implementations;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     public List<CharacterDTO> getAllCharacters() {
-        return mapper.ListEntity2ListDTO(repository.findAll());
+        return mapper.ListEntity2ListDTO(new HashSet<>(repository.findAll()));
     }
 
     public boolean deleteCharacter(Long id) {

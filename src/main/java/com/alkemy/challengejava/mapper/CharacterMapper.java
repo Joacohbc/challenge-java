@@ -3,6 +3,7 @@ package com.alkemy.challengejava.mapper;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
@@ -43,25 +44,19 @@ public class CharacterMapper {
         return dto;
     }
 
-    public List<CharacterDTO> ListEntity2ListDTO(List<CharacterEntity> entities) {
+    public List<CharacterDTO> ListEntity2ListDTO(Set<CharacterEntity> set) {
         List<CharacterDTO> dtos = new LinkedList<>();
-        for (CharacterEntity entity : entities) {
+        for (CharacterEntity entity : set) {
             dtos.add(Entity2DTO(entity));
         }
         return dtos;
     }
 
-    // public CharacterDTO Basic2DTO(CharacterBasicDTO basic) {
-    //     CharacterDTO dto = new CharacterDTO();
-    //     dto.setId(basic.getId());
-    //     dto.setName(basic.getName());
-    //     dto.setImage(basic.getImage());
-    //     dto.setAge(basic.getAge());
-    //     dto.setWeight(basic.getWeight());
-    //     dto.setHistory(basic.getHistory());
-    //     dto.setDeleted(basic.isDeleted());
-    //     // Agrego esto para evitar Null en atributo movies 
-    //     dto.setMovies(new HashSet<MovieDTO>());
-    //     return dto;
-    // }
+    public List<CharacterEntity> ListDTO2ListEntity(Set<CharacterDTO> set) {
+        List<CharacterEntity> entities = new LinkedList<>();
+        for (CharacterDTO dto : set) {
+            entities.add(DTO2Entity(dto));
+        }
+        return entities;
+    }
 }

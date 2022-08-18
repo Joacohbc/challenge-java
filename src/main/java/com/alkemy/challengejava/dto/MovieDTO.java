@@ -28,6 +28,4 @@ public class MovieDTO {
     private Set<CharacterDTO> characters;
 
     private Set<GenreDTO> genres;
-
-    private boolean deleted;
 }

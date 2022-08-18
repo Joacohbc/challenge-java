@@ -1,8 +1,8 @@
 package com.alkemy.challengejava.service.implementations;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.apache.logging.log4j.util.Strings;
@@ -158,15 +158,29 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void addCharacterToMovie(Long idMovie, Long idCharacter) throws ErrorDTO {
-        // CharacterDTO c = characterService.getCharacter(idCharacter);
-        // MovieDTO m = getMovie(idMovie);
+        CharacterDTO c = characterService.getCharacter(idCharacter);
+        MovieDTO m = getMovie(idMovie);
+        
+        if(!m.getCharacters().add(c)){
+            throw new ErrorDTO(
+                "La pelicula con el ID " + idMovie + " ya contiene al personaje con el ID " + idCharacter,
+                HttpStatus.BAD_REQUEST);
+        }
 
-        // m.getCharacters().add(c);
-        // repository.save(mapper.DTO2Entity(m, true));
+        repository.save(mapper.DTO2Entity(m, true));
     }
 
     @Override
     public void removeCharacterFromMovie(Long idMovie, Long idCharacter) throws ErrorDTO {
-        // repository.removeCharacter(idMovie, idCharacter);
+        CharacterDTO c = characterService.getCharacter(idCharacter);
+        MovieDTO m = getMovie(idMovie);
+
+        if(!m.getCharacters().remove(c)) {
+            throw new ErrorDTO(
+                "La pelicula con el ID " + idMovie + " no contiene al personaje con el ID " + idCharacter,
+                HttpStatus.BAD_REQUEST);
+        }
+        
+        repository.save(mapper.DTO2Entity(m, true));
     }
 }

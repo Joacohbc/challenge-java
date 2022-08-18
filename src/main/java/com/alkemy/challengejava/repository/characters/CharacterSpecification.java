@@ -76,7 +76,7 @@ public class CharacterSpecification {
             }
 
             // Y uno todos las condiciones (predicados) de manera que se deben cumplir todos (con un AND)
-            return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }
 }

@@ -61,7 +61,6 @@ public class MovieEntity {
 
                         // FK de la otra entidad (Personaje) en la relacion
                         inverseJoinColumns = @JoinColumn(name = CharacterEntity.IdColumName))
-        // TODO: Ver si hay que agregar CascadeType.PERSIST para que se cree la Pelicula con Generos y Personajes
         private Set<CharacterEntity> characters;
 
         @ManyToMany(cascade = CascadeType.MERGE)

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,13 +23,18 @@ public class GenreController {
     private GenreService service;
 
     @GetMapping // GET - /genres
-    public ResponseEntity<List<GenreDTO>> getAll() {
-        return ResponseEntity.ok(service.getAll());
+    public ResponseEntity<List<GenreDTO>> getAllGenres() {
+        return ResponseEntity.ok(service.getAllGenres());
+    }
+
+    @GetMapping("/{id}") // GET - /genres
+    public ResponseEntity<GenreDTO> getGenre(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getGenre(id));
     }
 
     // Si indicadara @PostMapping("/otracosa"), para acceer aqui seria POST - /genres/otracosa/
     @PostMapping // POST - /genres
     public ResponseEntity<GenreDTO> save(@RequestBody GenreDTO genre) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(genre));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.saveGenre(genre));
     }
 }

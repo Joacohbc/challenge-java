@@ -8,10 +8,10 @@ import com.alkemy.challengejava.dto.characters.CharacterDTO;
 
 public interface CharacterService {
 
-    // Guardar Personaje
+    // Guardar 
     CharacterDTO saveCharacter(CharacterDTO dto);
 
-    // Listar Personajes
+    // Listar 
     List<CharacterDTO> getAllCharacters();
 
     CharacterDTO getCharacter(Long id) throws ErrorDTO;
@@ -21,10 +21,10 @@ public interface CharacterService {
             Integer weight,
             Set<Long> movies, String order);
 
-    // Modificar Personaje
+    // Modificar 
     void updateCharacter(Long id, CharacterDTO dto) throws ErrorDTO;
 
-    // Borrar Personaje
+    // Borrar
     void deleteCharacter(Long id) throws ErrorDTO;
 
 }

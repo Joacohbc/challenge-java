@@ -1,6 +1,9 @@
 package com.alkemy.challengejava.controller;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,14 +53,28 @@ public class CharacterController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<CharacterDTO>> getCharacterByFilters(
+    public ResponseEntity<List<Map<String, Object>>> getCharacterByFilters(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) Integer age,
             @RequestParam(required = false) Integer weight,
             @RequestParam(required = false) Set<Long> movies,
             @RequestParam(required = false, defaultValue = "ASC") String order) {
 
-        return ResponseEntity.ok(service.getCharacterByFilters(name, age, weight, movies, order));
+        
+        // Obtengo los DTOs que pasaron el filtro
+        List<CharacterDTO> dtos = service.getCharacterByFilters(name, age, weight, movies, order);
+        
+        // Creo una lista de DTOs que contendra solo Id, Name e Image
+        List<Map<String, Object>> list = new LinkedList<>();
+        for (CharacterDTO dto : dtos) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("image", dto.getImage());
+            map.put("name", dto.getName());
+            map.put("id", dto.getId());
+            list.add(map);
+        }
+
+        return ResponseEntity.ok(list);
     }
 
     @DeleteMapping("/{id}") // DELETE - /characters/{id}

@@ -51,6 +51,13 @@ public class CharacterServiceImpl implements CharacterService {
         return mapper.Entity2DTO(dto.get(), true);
     }
 
+    public List<CharacterDTO> getCharacterByFilters(String name, Integer age, Integer weight, Set<Long> movies, String order) {
+        CharacterFiltersDTO filtersDTO = new CharacterFiltersDTO(name, age, weight, movies, order);
+
+        Set<CharacterEntity> entities = new HashSet<>(repository.findAll(specifications.getSpecsByFilters(filtersDTO)));
+        return mapper.ListEntity2ListDTO(entities, false);
+    }
+    
     public void deleteCharacter(Long id) throws ErrorDTO {
         getCharacter(id);
         repository.deleteById(id);
@@ -87,10 +94,5 @@ public class CharacterServiceImpl implements CharacterService {
         repository.update(dtoNew.getName(), dtoNew.getAge(), dtoNew.getHistory(), dtoNew.getImage(), dtoNew.getWeight(), id);
     }
 
-    public List<CharacterDTO> getCharacterByFilters(String name, Integer age, Integer weight, Set<Long> movies, String order) {
-        CharacterFiltersDTO filtersDTO = new CharacterFiltersDTO(name, age, weight, movies, order);
 
-        Set<CharacterEntity> entities = new HashSet<>(repository.findAll(specifications.getSpecsByFilters(filtersDTO)));
-        return mapper.ListEntity2ListDTO(entities, true);
-    }
 }

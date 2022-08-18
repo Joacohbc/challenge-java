@@ -16,6 +16,7 @@ import com.alkemy.challengejava.entity.CharacterEntity;
 
 @Repository
 public interface CharacterRepository extends JpaRepository<CharacterEntity, Long>, JpaSpecificationExecutor<CharacterEntity> {
+    
     // Metodo para realizar UPDATE, unicamente de Name, Age, History, Image, Weight (no id y no movies)
     @Modifying
     @Transactional

@@ -26,8 +26,27 @@ public class GenreServiceImpl implements GenreService {
     // Un Repository para trabjar con la BD
     private GenreRepository repository;
 
+    private void throwErrorIfNotExits(Long id){
+        if(!existGenre(id)){
+            throw new ErrorDTO("No existe un genero con el ID: " + id, HttpStatus.NOT_FOUND);
+        }
+    }
+    
     @Override
-    public GenreDTO saveGenre(GenreDTO dto) {
+    public boolean existGenre(Long id) {
+        return repository.existsById(id);
+    }
+
+    @Override
+    public GenreDTO saveGenre(GenreDTO dto) throws ErrorDTO {
+
+        if (dto.getId() != null) {
+            throw new ErrorDTO("No puede asignar un ID a un Genero en su creacion", HttpStatus.BAD_REQUEST);
+        }
+
+
+        // TODO: Valida campos no nulos en al guardar
+        
         // Guardo el DTO (mappeado a Entity)
         GenreEntity saved = repository.save(mapper.DTO2Entity(dto));
 
@@ -42,12 +61,7 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public GenreDTO getGenre(Long id) throws ErrorDTO {
-        Optional<GenreEntity> dto = repository.findById(id);
-        
-        if(!dto.isPresent()){
-            throw new ErrorDTO("The genre with the id " + id + " does not exist", HttpStatus.NOT_FOUND);
-        }
-
-        return mapper.Entity2DTO(dto.get());
+        throwErrorIfNotExits(id);
+        return mapper.Entity2DTO(repository.findById(id).get());
     }
 }

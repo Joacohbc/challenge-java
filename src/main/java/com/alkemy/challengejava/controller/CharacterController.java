@@ -31,8 +31,12 @@ public class CharacterController {
     private CharacterService service;
 
     @PostMapping // POST - /characters
-    public ResponseEntity<CharacterDTO> saveCharacter(@RequestBody CharacterDTO dto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.saveCharacter(dto));
+    public ResponseEntity<Object> saveCharacter(@RequestBody CharacterDTO dto) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.saveCharacter(dto));
+        } catch (ErrorDTO e) {
+            return e.toResponseEntity();
+        }
     }
 
     @GetMapping // GET - /characters

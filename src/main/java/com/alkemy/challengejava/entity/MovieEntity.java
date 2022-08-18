@@ -3,6 +3,7 @@ package com.alkemy.challengejava.entity;
 import java.time.LocalDate;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,7 +51,7 @@ public class MovieEntity {
         // Marco el Ownership de la relacion en Pelicula porque me parece que tiene mas
         // logica a nivel de negocio, aunque al ser una direccion bidireccional
         // da igual
-        @ManyToMany
+        @ManyToMany(cascade = CascadeType.MERGE)
         @JoinTable(
                         // Nombre de la tabla de la relacion entre Personaje y Pelicula
                         name = "MOVIE_CHARACTER",
@@ -60,9 +61,10 @@ public class MovieEntity {
 
                         // FK de la otra entidad (Personaje) en la relacion
                         inverseJoinColumns = @JoinColumn(name = CharacterEntity.IdColumName))
+        // TODO: Ver si hay que agregar CascadeType.PERSIST para que se cree la Pelicula con Generos y Personajes
         private Set<CharacterEntity> characters;
 
-        @ManyToMany
+        @ManyToMany(cascade = CascadeType.MERGE)
         @JoinTable(name = "MOVIE_GENRE", joinColumns = @JoinColumn(name = IdColumName), inverseJoinColumns = @JoinColumn(name = GenreEntity.IdColumName))
         private Set<GenreEntity> genres;
 

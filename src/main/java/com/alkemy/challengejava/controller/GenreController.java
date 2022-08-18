@@ -12,13 +12,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alkemy.challengejava.dto.ErrorDTO;
 import com.alkemy.challengejava.dto.GenreDTO;
 import com.alkemy.challengejava.service.GenreService;
 
 @RestController // Le indico a SpringBoot que estos una clase Controller
 @RequestMapping("genres") // Y que el URL del endpoint es /genres
 public class GenreController {
-    
+
     @Autowired // Le digo a SpringBoot que me inicialize el Servicio automaticamente
     private GenreService service;
 
@@ -32,9 +33,14 @@ public class GenreController {
         return ResponseEntity.ok(service.getGenre(id));
     }
 
-    // Si indicadara @PostMapping("/otracosa"), para acceer aqui seria POST - /genres/otracosa/
+    // Si indicadara @PostMapping("/otracosa"), para acceer aqui seria POST -
+    // /genres/otracosa/
     @PostMapping // POST - /genres
-    public ResponseEntity<GenreDTO> save(@RequestBody GenreDTO genre) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.saveGenre(genre));
+    public ResponseEntity<Object> save(@RequestBody GenreDTO dto) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(service.saveGenre(dto));
+        } catch (ErrorDTO e) {
+            return e.toResponseEntity();
+        }
     }
 }

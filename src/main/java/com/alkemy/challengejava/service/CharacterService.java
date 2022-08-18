@@ -9,7 +9,7 @@ import com.alkemy.challengejava.dto.characters.CharacterDTO;
 public interface CharacterService {
 
     // Inserta un Personaje (si no existe ya on es ID)    
-    CharacterDTO saveCharacter(CharacterDTO dto);
+    CharacterDTO saveCharacter(CharacterDTO dto) throws ErrorDTO;
 
     // Verifica si existe un Personaje o no (en base a su ID)
     boolean existCharacter(Long id);

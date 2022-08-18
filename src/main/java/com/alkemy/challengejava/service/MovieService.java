@@ -8,9 +8,10 @@ import com.alkemy.challengejava.dto.MovieDTO;
 public interface MovieService {
 
     // Guardar
-    MovieDTO saveMovie(MovieDTO dto);
+    MovieDTO saveMovie(MovieDTO dto) throws ErrorDTO;
     
     // Listar 
+    boolean existMovie(Long id);
     List<MovieDTO> getAllMovies();
     MovieDTO getMovie(Long id) throws ErrorDTO;
 

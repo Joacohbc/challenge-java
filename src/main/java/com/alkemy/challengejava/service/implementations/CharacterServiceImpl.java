@@ -2,7 +2,6 @@ package com.alkemy.challengejava.service.implementations;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.apache.logging.log4j.util.Strings;
@@ -45,12 +44,9 @@ public class CharacterServiceImpl implements CharacterService {
     }
 
     @Override
-    public CharacterDTO saveCharacter(CharacterDTO dto) {
-        
+    public CharacterDTO saveCharacter(CharacterDTO dto) throws ErrorDTO {
         if(dto.getId() != null){
-            if(existCharacter(dto.getId())){
-                throw new ErrorDTO("Un personaje con el ID " + dto.getId() + " ya existe", HttpStatus.BAD_REQUEST);
-            }
+            throw new ErrorDTO("No puede asignar un ID a un Personaje en su creacion", HttpStatus.BAD_REQUEST);
         }
 
         // TODO: Validar que los campos no sean nulos al guardar

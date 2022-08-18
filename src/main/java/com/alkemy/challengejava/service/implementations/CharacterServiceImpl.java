@@ -32,37 +32,63 @@ public class CharacterServiceImpl implements CharacterService {
     @Autowired
     private CharacterSpecification specifications;
 
+    // Arroja un error al ser ejecutado si el Personaje con Id no existe
+    private void throwErrorIfNotExits(Long id){
+        if(!existCharacter(id)){
+            throw new ErrorDTO("Un personaje con el ID " + id + " no existe", HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    @Override
+    public boolean existCharacter(Long id) {
+        return repository.existsById(id);
+    }
+
+    @Override
     public CharacterDTO saveCharacter(CharacterDTO dto) {
+        
+        if(dto.getId() != null){
+            if(existCharacter(dto.getId())){
+                throw new ErrorDTO("Un personaje con el ID " + dto.getId() + " ya existe", HttpStatus.BAD_REQUEST);
+            }
+        }
+
+        // TODO: Validar que los campos no sean nulos al guardar
         CharacterEntity entity = mapper.DTO2Entity(dto,false);
         return mapper.Entity2DTO(repository.save(entity),true);
     }
 
+    @Override
     public List<CharacterDTO> getAllCharacters() {
         return mapper.ListEntity2ListDTO(new HashSet<>(repository.findAll()),true);
     }
 
+    @Override
     public CharacterDTO getCharacter(Long id) throws ErrorDTO {
-        Optional<CharacterEntity> dto = repository.findById(id);
-
-        if(!dto.isPresent()){
-            throw new ErrorDTO("The character with the id " + id + " does not exist", HttpStatus.NOT_FOUND);
-        }
-
-        return mapper.Entity2DTO(dto.get(), true);
+        throwErrorIfNotExits(id);
+        return mapper.Entity2DTO(repository.findById(id).get(), true);
     }
 
+    @Override
     public List<CharacterDTO> getCharacterByFilters(String name, Integer age, Integer weight, Set<Long> movies, String order) {
+
+        // Creo el filtro
         CharacterFiltersDTO filtersDTO = new CharacterFiltersDTO(name, age, weight, movies, order);
 
+        // Obtengo las entidades en base a los filtros
         Set<CharacterEntity> entities = new HashSet<>(repository.findAll(specifications.getSpecsByFilters(filtersDTO)));
+        
+        // Retorno los resultados
         return mapper.ListEntity2ListDTO(entities, false);
     }
     
+    @Override
     public void deleteCharacter(Long id) throws ErrorDTO {
-        getCharacter(id);
+        throwErrorIfNotExits(id);
         repository.deleteById(id);
     }
 
+    @Override
     public void updateCharacter(Long id, CharacterDTO dtoNew) throws ErrorDTO {
 
         // Intento obtener los datos del Character
@@ -93,6 +119,4 @@ public class CharacterServiceImpl implements CharacterService {
         
         repository.update(dtoNew.getName(), dtoNew.getAge(), dtoNew.getHistory(), dtoNew.getImage(), dtoNew.getWeight(), id);
     }
-
-
 }

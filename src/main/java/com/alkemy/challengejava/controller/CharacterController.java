@@ -20,7 +20,7 @@ import com.alkemy.challengejava.dto.ErrorDTO;
 import com.alkemy.challengejava.dto.characters.CharacterDTO;
 import com.alkemy.challengejava.service.CharacterService;
 
-@Controller()
+@Controller
 @RequestMapping("characters")
 public class CharacterController {
 
@@ -39,14 +39,14 @@ public class CharacterController {
 
     @GetMapping("/{id}") // GET - /characters/{id}
     ResponseEntity<Object> get(@PathVariable Long id) {
+        try {
+            // Obtengo el el DTO de la base de datos
+            CharacterDTO dto = service.getCharacter(id);
+            return ResponseEntity.ok(dto);
 
-        // Obtengo el el DTO de la base de datos
-        CharacterDTO dto = service.getCharacter(id);
-
-        // Si DTO exite (es diferente de null) lo envio con Status.OK y si no le envio
-        // un NotFound
-        return dto != null ? ResponseEntity.ok(dto)
-                : ErrorDTO.NotFound("The character with the id " + id + " does not exist");
+        } catch (ErrorDTO e) {
+            return e.toResponseEntity();
+        }
     }
 
     @GetMapping("/")
@@ -55,33 +55,28 @@ public class CharacterController {
             @RequestParam(required = false) Integer age,
             @RequestParam(required = false) Integer weight,
             @RequestParam(required = false) Set<Long> movies,
-            @RequestParam(required = false, defaultValue = "ASC") String order ) {
-                
-        
+            @RequestParam(required = false, defaultValue = "ASC") String order) {
+
         return ResponseEntity.ok(service.getCharacterByFilters(name, age, weight, movies, order));
     }
 
     @DeleteMapping("/{id}") // DELETE - /characters/{id}
     public ResponseEntity<Object> deleteCharacter(@PathVariable Long id) {
-
-        // Si no se borro el carcter (false) le envio un error al usuario
-        if (!service.deleteCharacter(id)) {
-            return ErrorDTO.NotFound("The character with the id " + id + " does not exist");
+        try {
+            service.deleteCharacter(id);
+            return ResponseEntity.noContent().build();
+        } catch (ErrorDTO e) {
+            return e.toResponseEntity();
         }
-
-        // Si se borro el personaje lo notifico
-        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}") // PUT - /characters/{id}
     public ResponseEntity<Object> updateCharacter(@PathVariable Long id, @RequestBody CharacterDTO dto) {
-
-        // Si no se pudo modificar del personaje (false) le envio un error al usuario
-        if (!service.updateCharacter(id, dto)) {
-            return ErrorDTO.NotFound("The character with the id " + id + " does not exist");
+        try {
+            service.updateCharacter(id, dto);
+            return ResponseEntity.noContent().build();
+        } catch (ErrorDTO e) {
+            return e.toResponseEntity();
         }
-
-        // Si se modifico con exito lo notifico
-        return ResponseEntity.noContent().build();
     }
 }

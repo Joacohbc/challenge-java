@@ -20,11 +20,12 @@ import lombok.Setter;
 @Table(name = "charactert") // Uso un "t" luego de "character" porque me lo toma como la palabra reservada
 @Getter
 @Setter
-@SQLDelete (sql = "UPDATE charactert SET deleted=true WHERE id_character=?")
-@Where (clause = "deleted=false")
+@SQLDelete(sql = "UPDATE charactert SET deleted=true WHERE id_character=?")
+@Where(clause = "deleted=false")
 
 public class CharacterEntity {
 
+    // TODO: Usar etiquetas de validacion de javax.validation @Size, @Email, @NoEmpty y agregar el @Valid
     public static final String IdColumName = "id_character";
 
     @Id
@@ -35,7 +36,7 @@ public class CharacterEntity {
     private String name;
 
     private String image;
-    
+
     private Integer age;
 
     private Integer weight;

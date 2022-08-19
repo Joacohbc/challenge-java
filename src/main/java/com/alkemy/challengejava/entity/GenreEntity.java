@@ -25,7 +25,8 @@ import lombok.Setter;
 @Where (clause = "deleted=false")
 
 public class GenreEntity {
-    
+    // TODO: Usar etiquetas de validacion de javax.validation @Size, @Email, @NoEmpty y agregar el @Valid
+
     public static final String IdColumName = "id_genre";
 
     @Id

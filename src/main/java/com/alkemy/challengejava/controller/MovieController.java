@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +24,6 @@ import com.alkemy.challengejava.dto.ErrorDTO;
 import com.alkemy.challengejava.dto.movies.MovieDTO;
 import com.alkemy.challengejava.dto.movies.MovieFiltersDTO;
 import com.alkemy.challengejava.service.MovieService;
-
-import net.bytebuddy.asm.Advice.Local;
 
 @Controller
 @RequestMapping("movies")

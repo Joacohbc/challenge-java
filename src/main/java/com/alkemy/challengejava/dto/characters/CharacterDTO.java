@@ -2,7 +2,7 @@ package com.alkemy.challengejava.dto.characters;
 
 import java.util.Set;
 
-import com.alkemy.challengejava.dto.MovieDTO;
+import com.alkemy.challengejava.dto.movies.MovieDTO;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

@@ -12,12 +12,14 @@ import org.springframework.stereotype.Service;
 
 import com.alkemy.challengejava.dto.ErrorDTO;
 import com.alkemy.challengejava.dto.GenreDTO;
-import com.alkemy.challengejava.dto.MovieDTO;
 import com.alkemy.challengejava.dto.characters.CharacterDTO;
+import com.alkemy.challengejava.dto.movies.MovieDTO;
+import com.alkemy.challengejava.dto.movies.MovieFiltersDTO;
 import com.alkemy.challengejava.entity.MovieEntity;
 import com.alkemy.challengejava.entity.Rating;
 import com.alkemy.challengejava.mapper.MovieMapper;
 import com.alkemy.challengejava.repository.movies.MovieRepository;
+import com.alkemy.challengejava.repository.movies.MovieSpecification;
 import com.alkemy.challengejava.service.CharacterService;
 import com.alkemy.challengejava.service.GenreService;
 import com.alkemy.challengejava.service.MovieService;
@@ -29,13 +31,16 @@ public class MovieServiceImpl implements MovieService {
     private MovieRepository repository;
 
     @Autowired
+    private MovieSpecification specification;
+
+    @Autowired
+    private MovieMapper mapper;
+
+    @Autowired
     private CharacterService characterService;
 
     @Autowired
     private GenreService genreService;
-
-    @Autowired
-    private MovieMapper mapper;
 
     @Override
     public boolean existMovie(Long id) {
@@ -182,5 +187,11 @@ public class MovieServiceImpl implements MovieService {
         }
         
         repository.save(mapper.DTO2Entity(m, true));
+    }
+
+    @Override
+    public List<MovieDTO> getByFilters(MovieFiltersDTO filts) {
+        Set<MovieEntity> dtos = new HashSet<>(repository.findAll(specification.getSpecsByFilters(filts)));
+        return mapper.ListEntity2ListDTO(dtos, false);
     }
 }

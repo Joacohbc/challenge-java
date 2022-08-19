@@ -8,8 +8,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.alkemy.challengejava.dto.MovieDTO;
 import com.alkemy.challengejava.dto.characters.CharacterDTO;
+import com.alkemy.challengejava.dto.movies.MovieDTO;
 import com.alkemy.challengejava.entity.CharacterEntity;
 import com.alkemy.challengejava.entity.MovieEntity;
 

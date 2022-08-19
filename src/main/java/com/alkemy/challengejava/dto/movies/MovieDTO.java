@@ -1,8 +1,9 @@
-package com.alkemy.challengejava.dto;
+package com.alkemy.challengejava.dto.movies;
 
 import java.time.LocalDate;
 import java.util.Set;
 
+import com.alkemy.challengejava.dto.GenreDTO;
 import com.alkemy.challengejava.dto.characters.CharacterDTO;
 import com.alkemy.challengejava.entity.Rating;
 import com.fasterxml.jackson.annotation.JsonFormat;

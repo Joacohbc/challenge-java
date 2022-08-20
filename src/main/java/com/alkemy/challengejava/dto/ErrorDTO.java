@@ -10,19 +10,18 @@ import lombok.Getter;
 
 @Getter
 public class ErrorDTO extends RuntimeException{
-    
-    private String error;
+
     private HttpStatus status;
 
     public ErrorDTO(String error, HttpStatus status) {
-        this.error = error;
+        super(error);
         this.status = status;
     } 
 
     // Retorna un Map que tiene 2 Keys, "Error" y "Status".
     public Map<String, Object> toMap(){
         Map<String, Object> map = new HashMap<>();
-        map.put("error", error);
+        map.put("error", getMessage());
         map.put("status", status.value());
         return map;
     }

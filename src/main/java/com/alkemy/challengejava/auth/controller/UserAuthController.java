@@ -1,5 +1,7 @@
 package com.alkemy.challengejava.auth.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,25 +15,25 @@ import com.alkemy.challengejava.auth.service.AuthService;
 import com.alkemy.challengejava.dto.ErrorDTO;
 
 @Controller
-@RequestMapping("/auth") // Es la unica ruta valida para usuarios no authentificados
+@RequestMapping("/auth") // Es la unica ruta valida para usuarios no autentificados
 public class UserAuthController {
 
     @Autowired
-    private AuthService service;
+    private AuthService authService;
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody UserDTO user) {
+    public ResponseEntity<Object> login(@Valid @RequestBody UserDTO user) {
         try {
-            return ResponseEntity.status(HttpStatus.CREATED).body(service.login(user));
+            return ResponseEntity.status(HttpStatus.CREATED).body(authService.login(user));
         } catch (ErrorDTO e) {
             return e.toResponseEntity();
         }
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Object> register(@RequestBody UserDTO user) {
+    public ResponseEntity<Object> register(@Valid @RequestBody UserDTO user) {
         try {
-            service.register(user);
+            authService.register(user);
             return ResponseEntity.ok().build();
         } catch (ErrorDTO e) {
             return e.toResponseEntity();

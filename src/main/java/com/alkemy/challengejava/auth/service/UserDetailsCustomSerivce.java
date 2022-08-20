@@ -24,7 +24,7 @@ public class UserDetailsCustomSerivce implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws ErrorDTO {
-        // Busco el usuario en la base de datos
+        // Busco el usuario en la base de datos (por su usuario)
         UserEntity user = repository.findByUsername(username);
         
         // Si no existe arrojo un error del error
@@ -35,7 +35,14 @@ public class UserDetailsCustomSerivce implements UserDetailsService {
         return user;
     }
 
-    public void save(@Valid UserDTO dto) throws Exception {
+    public void save(UserDTO dto)throws ErrorDTO {
+
+        // Si ya existe un usuario con ese Username, le tiro un error
+        if(repository.findByUsername(dto.getUsername()) != null) {
+            throw new ErrorDTO("El usuario que con el el nombre "+ dto.getUsername()+" ya existe en la Base de datos", HttpStatus.BAD_REQUEST);
+        }
+
+        // Si no existe, genero uan nueva
         UserEntity user = new UserEntity();
 
         user.setUsername(dto.getUsername());

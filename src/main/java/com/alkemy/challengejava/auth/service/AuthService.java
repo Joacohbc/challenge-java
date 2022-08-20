@@ -27,7 +27,7 @@ public class AuthService {
         try {
             services.save(userDTO);
         } catch (Exception e) {
-            throw new ErrorDTO("Ocurrio un error al registrarse como usario: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            throw new ErrorDTO("Ocurrio un error al registrarse: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -38,10 +38,10 @@ public class AuthService {
                     .authenticate(
                             new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword()));
 
-            // Si el usuario es valido, obtengo sus Details
+            // Si el usuario es valido, obtengo su datos
             UserDetails user = (UserDetails) auth.getPrincipal();
 
-            // Y le retorno el Token
+            // Y le retorno el Token creado con los datos del usuario
             return jwtUtils.generateToken(user);
 
         } catch (Exception e) {

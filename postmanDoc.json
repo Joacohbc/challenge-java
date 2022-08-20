@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "c0b86223-0b3e-42a4-a749-d52c0c443fd7",
+		"name": "Alkemy Challenge Java",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Endpoints de Genero",
+			"item": [
+				{
+					"name": "Agregar un nuevo Genero",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Accion\",\n    \"image\":\"accion.img\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/genres",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los Genero",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "192.168.0.250:8080/genres",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un Genero",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "192.168.0.250:8080/genres/1",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"genres",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Endpoints de Character",
+			"item": [
+				{
+					"name": "Agregar nuevo Personaje",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// {\n//     \"name\": \"Mickey Mouse\",\n//     \"image\" : \"/usr/images/mickey.png\",\n//     \"age\": 10,\n//     \"weight\": 30,\n//     \"history\": \"Is the best mouse ever\"\n// }\n\n{\n    \"name\": \"Donald\",\n    \"image\" : \"/usr/images/donald.png\",\n    \"age\": 10,\n    \"weight\": 30,\n    \"history\": \"Is the best duck ever\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "192.168.0.250:8080/characters/",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"characters",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los Personajes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "192.168.0.250:8080/characters",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"characters"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Donald",
+									"disabled": true
+								},
+								{
+									"key": "age",
+									"value": "11",
+									"disabled": true
+								},
+								{
+									"key": "movies",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "DESC",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todos los Personajes (Filtros)",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "192.168.0.250:8080/characters/?order=DESC",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"characters",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Donald",
+									"disabled": true
+								},
+								{
+									"key": "age",
+									"value": "11",
+									"disabled": true
+								},
+								{
+									"key": "movies",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "DESC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener un Personaje",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "192.168.0.250:8080/characters/1",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"characters",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar un personaje",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "192.168.0.250:8080/characters/100",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"characters",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar personaje",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"image\" : \"\",\n    \"age\": 14,\n    \"weight\": 0,\n    \"history\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "192.168.0.250:8080/characters/1",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"characters",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Endpoints de Movies",
+			"item": [
+				{
+					"name": "Agregar nueva Pelicula",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"El Mago Donald\",\n    \"image\": \"magoDonald.png\",\n    \"creationDate\": \"01/02/2012\",\n    \"rating\": 2,\n    \"characters\": [\n        {\n            \"id\":2\n        }\n    ],\n    \"genres\": [\n        {\n            \"id\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "192.168.0.250:8080/movies",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todas las peliculas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "192.168.0.250:8080/movies/",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modificar Pelicula",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 13,\n    \"image\": \"donaldAventures.png\",\n    \"title\": \"Donald y sus aventuras\",\n    \"creationDate\": \"01/02/2019\",\n    \"rating\": \"CINCO_ESTRELLA\",\n    \"characters\": [],\n    \"genres\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "192.168.0.250:8080/movies/10",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar Personaje",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "192.168.0.250:8080/movies/13/characters/2",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								"13",
+								"characters",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover Personaje",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "192.168.0.250:8080/movies/13/characters/2",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								"13",
+								"characters",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener todas las Peliculas (Filtros)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "192.168.0.250:8080/movies/?order=ASC",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"movies",
+								""
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "image",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "creationDateMore",
+									"value": "01/01/2012",
+									"disabled": true
+								},
+								{
+									"key": "creationDateLess",
+									"value": "01/12/2012",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "ASC"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Endpoint de Autentificacion",
+			"item": [
+				{
+					"name": "Auth - Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "s",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "192.168.0.250:8080/auth/login",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Auth - Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "192.168.0.250:8080/auth/register",
+							"host": [
+								"192",
+								"168",
+								"0",
+								"250"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

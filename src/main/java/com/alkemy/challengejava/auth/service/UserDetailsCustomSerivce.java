@@ -1,7 +1,5 @@
 package com.alkemy.challengejava.auth.service;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
